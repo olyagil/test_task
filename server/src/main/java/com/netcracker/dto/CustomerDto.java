@@ -15,9 +15,7 @@ public class CustomerDto {
     private Integer id;
     private String title;
     private String firstName;
-//    private String firstNameMetaphone;
     private String lastName;
-//    private String lastNameMetaphone;
     private Date modifiedWhen;
     private Integer typeId;
     private String typeCaption;

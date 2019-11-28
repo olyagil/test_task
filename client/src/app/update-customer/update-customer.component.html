@@ -1,75 +1,88 @@
-<!--<h3 style="text-align: center;">Update Customer</h3>-->
-<!--<div [hidden]="submitted" style="width: 400px;">-->
+<h3 style="text-align: center;">Update Customer</h3>
+<hr/>
 
-<!--  <form [formGroup]="form" (ngSubmit)="onSubmit()">-->
-<!--    <div class="form-group">-->
-<!--      <label>Title</label>-->
-<!--      <input type="text" class="form-control" formControlName="title"-->
-<!--      placeholder="{{customer.title}}" title="Enter title" name="title" value="{{customer.title}}">-->
-<!--      <div class="alert alert-danger"-->
-<!--           *ngIf="(Title.touched) && (Title.invalid)"-->
-<!--           style="margin-top: 5px;">-->
-<!--        <span *ngIf="Title.errors.required"> Title is required</span>-->
-<!--        <span *ngIf="Title.errors.maxlength">Title needs to be smaller</span>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    -->
-<!--    <div class="form-group">-->
-<!--      <label for="firstName">First Name:</label>-->
-<!--      <input formControlName="firstName" placeholder="First Name" name="firstName" class="form-control" id="firstName">-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--      <label for="first_name">First Name</label>-->
-<!--      <input type="text" class="form-control" formControlName="first_name"-->
-<!--             data-toggle="tooltip" id="first_name" data-placement="right"-->
-<!--             title="Enter Customer Name" name="first_name"-->
-<!--             value="{{customer.firstName}}">-->
-<!--      <div class="alert alert-danger"-->
-<!--           *ngIf="(FirstName.touched) && (FirstName.invalid)"-->
-<!--           style="margin-top: 5px;">-->
-<!--        <span *ngIf="FirstName.errors.required"> First name is required</span>-->
-<!--        <span *ngIf="FirstName.errors.minlength">MinLength Error</span>-->
-<!--        <span-->
-<!--          *ngIf="FirstName.errors.maxlength">First name needs to be smaller</span>-->
-<!--      </div>-->
-<!--    </div>-->
+<div *ngIf="!customer.id">
+  <h2 style="text-align: center;">This customer doesn't exist!</h2>
+</div>
 
-<!--    <div class="form-group">-->
-<!--      <label for="last_name">Last Name</label>-->
-<!--      <input type="text" class="form-control" formControlName="last_name"-->
-<!--             data-toggle="tooltip" id="last_name" data-placement="right"-->
-<!--             title="Enter last name" name="last_name"-->
-<!--             value="{{customer.lastName}}">-->
-<!--      <div class="alert alert-danger"-->
-<!--           *ngIf="(LastName.touched) && (LastName.invalid)"-->
-<!--           style="margin-top: 5px;">-->
-<!--        <span *ngIf="LastName.errors.required"> Last name is required</span>-->
-<!--        <span *ngIf="LastName.errors.minlength">MinLength Error</span>-->
-<!--        <span-->
-<!--          *ngIf="LastName.errors.maxlength">Last name needs to be smaller</span>-->
-<!--      </div>-->
-<!--    </div>-->
+<div *ngIf="customer.id">
 
-<!--    <div class="form-group">-->
-<!--      <label for="type">Customer type</label>-->
-<!--      <select class="form-control" formControlName="type" data-toggle="tooltip"-->
-<!--              data-placement="right" title="Select type of the customer"-->
-<!--              id="type">-->
-<!--        <ng-container *ngFor="let type of customerTypes | async">-->
-<!--          <div-->
-<!--            *ngIf="(customer.typeId === type.id); then thenBlock else elseBlock"></div>-->
+  <div [hidden]="submitted" style="width: 400px;">
 
-<!--          <ng-template #thenBlock>-->
-<!--            <option selected="selected"-->
-<!--                    value="{{type.id}}">{{type.caption}} </option>-->
-<!--          </ng-template>-->
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
 
-<!--          <ng-template #elseBlock>-->
-<!--            <option value="{{type.id}}">{{type.caption}}</option>-->
-<!--          </ng-template>-->
-<!--        </ng-container>-->
-<!--      </select>-->
-<!--    </div>-->
-<!--    <button type="submit" class="btn btn-success">Submit</button>-->
-<!--  </form>-->
-<!--</div>-->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" formControlName="title"
+               id="title" name="title" [(ngModel)]="customer.title">
+        <div class="alert alert-danger"
+             *ngIf="(Title.touched) && (Title.invalid)"
+             style="margin-top: 5px;">
+          <span *ngIf="Title.errors.required"> Title is required.</span>
+          <span
+            *ngIf="Title.errors.maxlength"> Title needs to be smaller.</span>
+          <span
+            *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" formControlName="first_name"
+               id="first_name" title="Enter Customer Name" name="first_name"
+               [(ngModel)]="customer.firstName">
+        <div class="alert alert-danger"
+             *ngIf="(FirstName.touched) && (FirstName.invalid)"
+             style="margin-top: 5px;">
+          <span
+            *ngIf="FirstName.errors.required"> First name is required.</span>
+          <span
+            *ngIf="FirstName.errors.minlength"> First name needs to be bigger.</span>
+          <span
+            *ngIf="FirstName.errors.maxlength"> First name needs to be smaller.</span>
+          <span
+            *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" class="form-control" formControlName="last_name"
+               id="last_name" title="Enter last name" name="last_name"
+               [(ngModel)]="customer.lastName">
+        <div class="alert alert-danger"
+             *ngIf="(LastName.touched) && (LastName.invalid)"
+             style="margin-top: 5px;">
+          <span *ngIf="LastName.errors.required"> Last name is required.</span>
+          <span
+            *ngIf="LastName.errors.minlength"> Last name needs to be bigger.</span>
+          <span
+            *ngIf="LastName.errors.maxlength"> Last name needs to be smaller.</span>
+          <span
+            *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="type">Customer type</label>
+        <select class="form-control" formControlName="type"
+                title="Select type of the customer" id="type"
+                [(ngModel)]="customer.typeId">
+          <option *ngFor="let type of customerTypes | async"
+                  value="{{type.id}}">{{type.caption}}</option>
+        </select>
+
+      </div>
+      <button type="submit" [disabled]="!updateForm.valid"
+              class="btn btn-success">Submit
+      </button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <p style="text-align: center;"> The customer
+      <b>{{customer.title}} {{customer.firstName}} {{customer.lastName}}</b> has
+      been changed successfully! </p>
+  </div>
+</div>
+

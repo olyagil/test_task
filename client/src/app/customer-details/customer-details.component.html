@@ -1,37 +1,47 @@
 <h2 style="text-align: center;">Customer details</h2>
-
 <hr/>
-<div *ngIf="customer">
+<div [hidden]="submitted">
 
-  <div>
-    <label><b>Id: </b></label> {{customer.id}}
+  <div *ngIf="!customer.id">
+    <h2 style="text-align: center;">This customer doesn't exist!</h2>
   </div>
-  <div>
-    <label><b>Title: </b></label> {{customer.title}}
-  </div>
-  <div>
-    <label><b>First Name: </b></label> {{customer.firstName}}
-  </div>
-  <div>
-    <label><b>Last Name: </b></label> {{customer.lastName}}
-  </div>
-  <div>
-    <label><b>Last modified: </b></label> {{customer.modifiedWhen | date:"dd.MM.yyyy 'at' h:mma"}}
-  </div>
-  <div>
-    <label><b>Type: </b></label> {{customer.typeCaption}}
+
+  <div *ngIf="customer.id">
+    <div>
+      <label><b>Id: </b></label> {{customer.id}}
+    </div>
+    <div>
+      <label><b>Title: </b></label> {{customer.title}}
+    </div>
+    <div>
+      <label><b>First Name: </b></label> {{customer.firstName}}
+    </div>
+    <div>
+      <label><b>Last Name: </b></label> {{customer.lastName}}
+    </div>
+    <div>
+      <label><b>Last modified: </b></label>
+      {{customer.modifiedWhen | date:"dd.MM.yyyy 'at' h:mma"}}
+    </div>
+    <div>
+      <label><b>Type: </b></label> {{customer.typeCaption}}
+    </div>
+    <br>
+    <button (click)="deleteCustomer(customer.id)" class="btn btn-danger">
+      Delete
+    </button>
+    <br> <br>
+    <button (click)="updateCustomer(customer.id)" class="btn btn-primary">
+      Change
+    </button>
   </div>
 </div>
-<br>
-<button (click)="deleteCustomer(customer.id)"
-        class="btn btn-danger">
-  Delete
-</button>
-<br>
-<br>
-<button (click)="updateCustomer(customer.id)"
-        class="btn btn-primary">
-  Change
-</button>
+
+<div [hidden]="!submitted">
+  <p style="text-align: center;"> The Customer <b>{{customer.title}}
+    {{customer.firstName}} {{customer.lastName}}</b> has been successfully
+    deleted!
+  </p>
+</div>
 
 

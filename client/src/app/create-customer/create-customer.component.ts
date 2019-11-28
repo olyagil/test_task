@@ -19,12 +19,13 @@ export class CreateCustomerComponent implements OnInit {
   constructor(private service: CustomerService, private router: Router) {
   }
 
-
-  form = new FormGroup({
+  createForm = new FormGroup({
     title: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]),
-    first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-    last_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]),
-    type: new FormControl()
+    first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+      Validators.pattern('[a-zA-Z ]*')]),
+    last_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+      Validators.pattern('[a-zA-Z ]*')]),
+    type: new FormControl('', [Validators.required])
   });
 
   ngOnInit() {
@@ -33,45 +34,38 @@ export class CreateCustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.form.value);
+    console.log(this.createForm.value);
     this.customer = new Customer();
     this.customer.title = this.Title.value;
     this.customer.firstName = this.FirstName.value;
     this.customer.lastName = this.LastName.value;
     this.customer.typeId = this.Type.value;
-    this.submitted = true;
     this.save();
+    this.submitted = true;
   }
 
   save() {
     this.service.createCustomer(this.customer)
       .subscribe(data => console.log(data), error => console.error(error));
-    this.customer = new Customer();
-    this.goToList();
   }
 
   reloadCustomerTypes() {
     this.customerTypes = this.service.getCustomerTypeList();
   }
 
-  goToList() {
-    this.router.navigate(['/customers']);
-  }
-
-
   get Title() {
-    return this.form.get('title');
+    return this.createForm.get('title');
   }
 
   get FirstName() {
-    return this.form.get('first_name');
+    return this.createForm.get('first_name');
   }
 
   get LastName() {
-    return this.form.get('last_name');
+    return this.createForm.get('last_name');
   }
 
   get Type() {
-    return this.form.get('type');
+    return this.createForm.get('type');
   }
 }

@@ -39,6 +39,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<CustomerDto> findByFirstNameOrLastNameOrderByModifiedWhenDesc(String firstName, String lastName) {
+
         String firstNameMetaphone = metaphone.encode(firstName);
         String lastNameMetaphone = metaphone.encode(lastName);
 
@@ -47,6 +48,7 @@ public class CustomerServiceImpl implements CustomerService {
                 .map(customer -> (mapper.toDto(customer).get()))
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public void create(CustomerDto dto) {

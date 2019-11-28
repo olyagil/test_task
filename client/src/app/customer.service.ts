@@ -35,7 +35,7 @@ export class CustomerService {
     return this.http.get(`${this.baseUrl}${this.customerUrl}`);
   }
   searchCustomerList(firstName: string, lastName: string): Observable<any> {
-    return this.http.get(`${this.baseUrl}${this.customerUrl}/search?firstName=${firstName}&lastName="${lastName}`);
+    return this.http.get(`${this.baseUrl}${this.customerUrl}/search?firstName=${firstName}&lastName=${lastName}`);
   }
 
   getCustomerTypeList(): Observable<any> {

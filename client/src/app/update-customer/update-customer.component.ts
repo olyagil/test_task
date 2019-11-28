@@ -15,32 +15,25 @@ export class UpdateCustomerComponent implements OnInit {
   id: number;
   customer: Customer;
   customerTypes: Observable<CustomerType[]>;
-  form: FormGroup;
   submitted = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
-              private service: CustomerService, private builder: FormBuilder) {
-    this.createForm();
+              private service: CustomerService) {
   }
 
-  createForm() {
-    this.form = this.builder.group({
-      title: ['', Validators.required, Validators.maxLength(3)],
-      first_name: ['', Validators.required, Validators.minLength(3), Validators.maxLength(50)],
-      last_name: ['', Validators.required, Validators.minLength(3), Validators.maxLength(50)],
-      type : ['']
-    });
-  }
+  updateForm = new FormGroup({
+    title: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]),
+    first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+      Validators.pattern('[a-zA-Z ]*')]),
+    last_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+      Validators.pattern('[a-zA-Z ]*')]),
+    type: new FormControl('', [Validators.required])
+  });
 
   ngOnInit() {
     this.submitted = false;
     this.customer = new Customer();
     this.id = this.route.snapshot.params.id;
-    if (!this.id) {
-      alert('Invalid action.');
-      this.goToList();
-      return;
-    }
     this.reloadCustomerTypes();
 
     this.service.getCustomer(this.id)
@@ -50,13 +43,8 @@ export class UpdateCustomerComponent implements OnInit {
       }, error => console.log(error));
   }
 
-  reloadCustomerTypes() {
-    this.customerTypes = this.service.getCustomerTypeList();
-  }
-
   onSubmit() {
-    console.log(this.createForm);
-    this.customer = new Customer();
+    console.log(this.updateForm);
     this.customer.title = this.Title.value;
     this.customer.firstName = this.FirstName.value;
     this.customer.lastName = this.LastName.value;
@@ -68,28 +56,25 @@ export class UpdateCustomerComponent implements OnInit {
   update() {
     this.service.updateCustomer(this.id, this.customer)
       .subscribe(data => console.log(data), error => console.log(error));
-    // this.customer = new Customer();
-    this.goToList();
   }
 
-  goToList() {
-    this.router.navigate(['customers']);
+  reloadCustomerTypes() {
+    this.customerTypes = this.service.getCustomerTypeList();
   }
 
   get Title() {
-    return this.createForm.get('title');
+    return this.updateForm.get('title');
   }
 
   get FirstName() {
-    return this.createForm.get('first_name');
+    return this.updateForm.get('first_name');
   }
 
   get LastName() {
-    return this.createForm.get('last_name');
+    return this.updateForm.get('last_name');
   }
 
   get Type() {
-    return this.createForm.get('type');
+    return this.updateForm.get('type');
   }
-
 }

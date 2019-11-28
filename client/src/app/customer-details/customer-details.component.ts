@@ -13,6 +13,7 @@ export class CustomerDetailsComponent implements OnInit {
 
   id: number;
   customer: Customer;
+  submitted = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
               private service: CustomerService) {
@@ -34,14 +35,16 @@ export class CustomerDetailsComponent implements OnInit {
   }
 
   deleteCustomer(id: number) {
-    this.service.deleteCustomer(id)
-      .subscribe(
-        data => {
-          console.log(data);
-        },
-        error => console.log(error)
-      );
-    this.goToList();
+    if (confirm('Are you sure to delete customer with id: ' + id)) {
+      this.service.deleteCustomer(id)
+        .subscribe(
+          data => {
+            console.log(data);
+          },
+          error => console.log(error)
+        );
+      this.submitted = true;
+    }
   }
 
   goToList() {

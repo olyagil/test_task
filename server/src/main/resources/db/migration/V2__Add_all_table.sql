@@ -15,10 +15,10 @@ create table "customers"
     last_name            varchar(50) not null,
     last_name_metaphone  varchar(40) not null,
     modified_when        timestamp   not null,
-    customer_types       int       not null,
+    customer_types       int         not null,
     constraint pk_customer primary key (id),
     constraint customer_types_id_fk foreign key (customer_types)
         references customer_types (id) match simple
-        on delete cascade on update cascade
+        on delete restrict on update cascade
 );
 

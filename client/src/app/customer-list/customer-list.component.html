@@ -1,24 +1,37 @@
-<div class="panel panel-primary">
-  <div class="panel-heading">
-    <h2 style="text-align: center;">Customer List</h2>
-  </div>
+<h3 style="text-align: center;">Customers</h3>
+<hr/>
 
-  <button (click)="addCustomer()" class="btn btn-info"
-          style="float: right;">Add customer
-  </button>
+<button (click)="addCustomer()" class="btn btn-info"
+        style="float: right;">Add customer
+</button>
 
-  <div class="row">
-      <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
-        <table>
-          <tr>
-            <td> <input type="text" formControlName="first_name" placeholder="Enter first name" class="form-control"> </td>
-            <td> <input type="text" formControlName="last_name" placeholder="Enter last name" class="form-control"> </td>
-            <td><button class="btn btn-primary hidden-xs">Search</button></td>
-          </tr>
-        </table>
-      </form>
+<div class="row">
+  <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
+    <table>
+      <tr>
+        <td><label>
+          <input type="text" formControlName="first_name"
+                 placeholder="Enter first name" class="form-control">
+        </label></td>
+        <td><label>
+          <input type="text" formControlName="last_name"
+                 placeholder="Enter last name" class="form-control">
+        </label></td>
+        <td>
+          <button class="btn btn-primary hidden-xs">Search</button>
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
 
-  </div>
+<br><br>
+<div *ngIf="(customers | async)?.length==0">
+  <h2 style="text-align: center;">Customers not found!!</h2>
+</div>
+
+<div *ngIf="(customers | async)?.length>0">
+
   <div class="panel-body">
     <table class="table table-striped">
       <thead>
