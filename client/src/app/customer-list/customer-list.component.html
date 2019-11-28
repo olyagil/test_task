@@ -1,0 +1,54 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2 style="text-align: center;">Customer List</h2>
+  </div>
+
+  <button (click)="addCustomer()" class="btn btn-info"
+          style="float: right;">Add customer
+  </button>
+
+  <div class="row">
+      <form [formGroup]="form" #searchInfo (ngSubmit)="searchForm(searchInfo)">
+        <table>
+          <tr>
+            <td> <input type="text" formControlName="first_name" placeholder="Enter first name" class="form-control"> </td>
+            <td> <input type="text" formControlName="last_name" placeholder="Enter last name" class="form-control"> </td>
+            <td><button class="btn btn-primary hidden-xs">Search</button></td>
+          </tr>
+        </table>
+      </form>
+
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Id</th>
+        <th>Title</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Last modified</th>
+        <th>Type</th>
+        <th>Details</th>
+
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customers | async">
+        <td>{{customer.id}}</td>
+        <td>{{customer.title}}</td>
+        <td>{{customer.firstName}}</td>
+        <td>{{customer.lastName}}</td>
+        <td>{{customer.modifiedWhen | date:"dd.MM.yyyy 'at' h:mma"}}</td>
+        <td>{{customer.typeCaption}}</td>
+        <td>
+
+          <button (click)="customerDetails(customer.id)" class="btn btn-info"
+                  style="margin-left: 10px">Details
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,65 @@
+<h3 style="text-align: center;">Create Customer</h3>
+<div [hidden]="submitted" style="width: 400px;">
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" class="form-control" formControlName="title"
+             id="title" name="title">
+      <div class="alert alert-danger"
+           *ngIf="(Title.touched) && (Title.invalid)"
+           style="margin-top: 5px;">
+        <span *ngIf="Title.errors.required"> Title is required</span>
+        <span *ngIf="Title.errors.maxlength">Title needs to be smaller</span>
+        <span *ngIf="Title.errors.pattern">Enter only english letters, please!</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="first_name">First Name</label>
+      <input type="text" class="form-control" formControlName="first_name"
+             data-toggle="tooltip" id="first_name" data-placement="right"
+             title="Enter Customer Name" name="first_name">
+      <div class="alert alert-danger"
+           *ngIf="(FirstName.touched) && (FirstName.invalid)"
+           style="margin-top: 5px;">
+        <span *ngIf="FirstName.errors.required"> First name is required</span>
+        <span *ngIf="FirstName.errors.minlength">MinLength Error</span>
+        <span
+          *ngIf="FirstName.errors.maxlength">First name needs to be smaller</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="text" class="form-control" formControlName="last_name"
+             data-toggle="tooltip" id="last_name" data-placement="right"
+             title="Enter last name" name="last_name">
+      <div class="alert alert-danger"
+           *ngIf="(LastName.touched) && (LastName.invalid)"
+           style="margin-top: 5px;">
+        <span *ngIf="LastName.errors.required"> Last name is required</span>
+        <span *ngIf="LastName.errors.minlength">MinLength Error</span>
+        <span
+          *ngIf="LastName.errors.maxlength">Last name needs to be smaller</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="type">Customer type</label>
+      <select class="form-control" formControlName="type" data-toggle="tooltip"
+              data-placement="right" title="Select type of the customer"
+              id="type">
+        <ng-container *ngFor="let type of customerTypes | async">
+          <option value="{{type.id}}">{{type.caption}}</option>
+        </ng-container>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-success">Submit</button>
+  </form>
+</div>
+
+<div [hidden]="!submitted">
+  <h4>You submitted successfully!</h4>
+</div>
