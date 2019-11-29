@@ -12,7 +12,8 @@
            style="margin-top: 5px;">
         <span *ngIf="Title.errors.required"> Title is required.</span>
         <span *ngIf="Title.errors.maxlength"> Title needs to be smaller.</span>
-        <span *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        <span
+          *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -25,10 +26,11 @@
            *ngIf="(FirstName.touched) && (FirstName.invalid)"
            style="margin-top: 5px;">
         <span *ngIf="FirstName.errors.required"> First name is required.</span>
-        <span *ngIf="FirstName.errors.minlength"> First name needs to be bigger.</span>
+        <span
+          *ngIf="FirstName.errors.minlength"> First name needs to be bigger.</span>
         <span
           *ngIf="FirstName.errors.maxlength"> First name needs to be smaller.</span>
-        <span *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        <span *ngIf="FirstName.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -41,10 +43,11 @@
            *ngIf="(LastName.touched) && (LastName.invalid)"
            style="margin-top: 5px;">
         <span *ngIf="LastName.errors.required"> Last name is required.</span>
-        <span *ngIf="LastName.errors.minlength"> Last name needs to be bigger.</span>
+        <span
+          *ngIf="LastName.errors.minlength"> Last name needs to be bigger.</span>
         <span
           *ngIf="LastName.errors.maxlength"> Last name needs to be smaller.</span>
-        <span *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+        <span *ngIf="LastName.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -57,12 +60,21 @@
           <option value="{{type.id}}">{{type.caption}}</option>
         </ng-container>
       </select>
+      <div class="alert alert-danger"
+           *ngIf="(Type.touched) && (Type.invalid)"
+           style="margin-top: 5px;">
+        <span *ngIf="Type.errors.required"> Choose a type, please.</span>
+      </div>
     </div>
-    <button type="submit" [disabled]="!createForm.valid" class="btn btn-success">Submit</button>
+    <button type="submit" [disabled]="!createForm.valid"
+            class="btn btn-success">Submit
+    </button>
   </form>
 </div>
 
 <div [hidden]="!submitted">
   <p style="text-align: center;">You submitted successfully!
-    The customer <b>{{customer.title}} {{customer.firstName}} {{customer.lastName}}</b> has been added to the system </p>
+    The customer
+    <b>{{customer.title}} {{customer.firstName}} {{customer.lastName}}</b> has
+    been added to the system </p>
 </div>

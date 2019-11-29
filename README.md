@@ -1,9 +1,11 @@
-# Test ask for Netcracker
+# Test task for Netcracker
 
 The simple information system for managing and searching a customer base.  
 
 ## Technologies
 Project is created with:  
+* JDK: Open JDK 11
+* Build tool: Maven
 * String Boot: 2.2.1
 * Hibernate: 5.1.0
 * Tomcat: 9.0.27
@@ -13,12 +15,14 @@ Project is created with:
 * Lombok: 1.18.10
 * Angular: ~8.2.14
 
+
 ## Screenshots
 ##### Customers
 ![Customers](./client/src/assets/customers.png)
-##### Add customer with validation
+##### Add a customer with validation
 ![Example screenshots](./client/src/assets/add-customer.png)
-
+##### Delete the customer with confirmation
+![Example screenshots](./client/src/assets/delete-customer.png)
 ### Used resources 
 * [For Hibernate](https://www.baeldung.com/hibernate-5-spring)
 * [Configure Hibernate ](https://www.springboottutorial.com/hibernate-jpa-tutorial-with-spring-boot-starter-jpa)
