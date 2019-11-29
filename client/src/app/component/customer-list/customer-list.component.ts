@@ -1,10 +1,8 @@
-import {CustomerDetailsComponent} from '../customer-details/customer-details.component';
 import {Observable} from 'rxjs';
-import {CustomerService} from '../customer.service';
-import {Customer} from '../customer';
+import {CustomerService} from '../../service/customer.service';
+import {Customer} from '../../model/customer';
 import {Component, OnInit} from '@angular/core';
 import {Router, Route} from '@angular/router';
-import {CustomerType} from '../customer-type';
 import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
@@ -26,10 +24,10 @@ export class CustomerListComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.reloadData();
+    this.loadCustomers();
   }
 
-  reloadData() {
+  loadCustomers() {
     this.customers = this.service.getCustomerList();
   }
 

@@ -1,7 +1,8 @@
 # Test task for Netcracker
 
 The simple information system for managing and searching a customer base.  
-
+Full-stack application using Spring Boot as backend provider and Angular 8 
+as a fronted provider which performs different CRUD operations on a Customer entity.
 ## Technologies
 Project is created with:  
 * JDK: Open JDK 11

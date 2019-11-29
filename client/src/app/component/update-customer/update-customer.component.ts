@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Customer} from '../customer';
-import {CustomerService} from '../customer.service';
+import {Customer} from '../../model/customer';
+import {CustomerService} from '../../service/customer.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {CustomerType} from '../customer-type';
+import {CustomerType} from '../../model/customer-type';
 
 @Component({
   selector: 'app-update-customer',

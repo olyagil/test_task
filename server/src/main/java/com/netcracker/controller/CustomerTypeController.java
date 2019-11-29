@@ -28,7 +28,7 @@ public class CustomerTypeController {
 
     /*---get all customer type---*/
     @GetMapping("/customer-types")
-    public ResponseEntity<List<CustomerType>> allCustomerTypes(HttpServletRequest request) {
+    public ResponseEntity<List<CustomerType>> getAllCustomerTypes(HttpServletRequest request) {
         List<CustomerType> customers = service.read();
         log.info(String.format("The customer's types were requested from this id address: %s", request.getRemoteAddr()));
         return ResponseEntity.ok().body(customers);
@@ -36,8 +36,8 @@ public class CustomerTypeController {
 
     /*---Get a customer type by id---*/
     @GetMapping("/customer-types/{id}")
-    public ResponseEntity<CustomerTypeDto> customerType(@PathVariable("id") Integer id,
-                                                        HttpServletRequest request)
+    public ResponseEntity<CustomerTypeDto> getCustomerType(@PathVariable("id") Integer id,
+                                                           HttpServletRequest request)
             throws ResourceNotFoundException {
 
         CustomerTypeDto customer = service.read(id)

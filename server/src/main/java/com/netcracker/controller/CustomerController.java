@@ -27,16 +27,16 @@ public class CustomerController {
 
     /*---get all customers---*/
     @GetMapping({"/", Constants.GET_ALL_CUSTOMERS})
-    public ResponseEntity<List<CustomerDto>> allCustomers(HttpServletRequest request) {
+    public ResponseEntity<List<CustomerDto>> getAllCustomers(HttpServletRequest request) {
         List<CustomerDto> customers = customerService.findAllByCustomerByModifiedWhenDesc();
         log.info("The customers were requested from ip address: " + request.getRemoteAddr());
         return ResponseEntity.ok().body(customers);
     }
 
     @GetMapping({"/", Constants.SEARCH_CUSTOMER})
-    public ResponseEntity<List<CustomerDto>> filteredCustomers(@RequestParam String firstName,
-                                                               @RequestParam String lastName,
-                                                               HttpServletRequest request) {
+    public ResponseEntity<List<CustomerDto>> getFilteredCustomers(@RequestParam String firstName,
+                                                                  @RequestParam String lastName,
+                                                                  HttpServletRequest request) {
         List<CustomerDto> customers = customerService.findByFirstNameOrLastNameOrderByModifiedWhenDesc(firstName, lastName);
         log.info("The searched customers were requested from ip address: " + request.getRemoteAddr());
         return ResponseEntity.ok().body(customers);
@@ -44,8 +44,8 @@ public class CustomerController {
 
     /*---Get a customer by id---*/
     @GetMapping(Constants.GET_CUSTOMER_BY_ID)
-    public ResponseEntity<CustomerDto> customer(@PathVariable("id") Integer id,
-                                                HttpServletRequest request)
+    public ResponseEntity<CustomerDto> getCustomer(@PathVariable("id") Integer id,
+                                                   HttpServletRequest request)
             throws ResourceNotFoundException {
 
         CustomerDto customer = customerService.readDto(id)
@@ -56,9 +56,8 @@ public class CustomerController {
 
     /*---Add new customer---*/
     @PostMapping(Constants.GET_ALL_CUSTOMERS)
-    public ResponseEntity<?> saveCustomer(@Valid @RequestBody CustomerDto dto,
-                                          HttpServletRequest request)
-            throws ResourceNotFoundException {
+    public ResponseEntity saveCustomer(@Valid @RequestBody CustomerDto dto,
+                                          HttpServletRequest request) {
 
         customerService.create(dto);
         log.info(String.format("The customer was requested from ip address: %s",
@@ -69,7 +68,7 @@ public class CustomerController {
 
     /*---Update the customer by id---*/
     @PutMapping(Constants.GET_CUSTOMER_BY_ID)
-    public ResponseEntity<?> updateCustomer(@PathVariable("id") Integer id,
+    public ResponseEntity updateCustomer(@PathVariable("id") Integer id,
                                             @Valid @RequestBody CustomerDto customerDto,
                                             HttpServletRequest request) {
 
@@ -81,7 +80,7 @@ public class CustomerController {
 
     /*---Delete the customer by id---*/
     @DeleteMapping(Constants.GET_CUSTOMER_BY_ID)
-    public ResponseEntity<?> deleteCustomer(@PathVariable("id") Integer id,
+    public ResponseEntity deleteCustomer(@PathVariable("id") Integer id,
                                             HttpServletRequest request)
             throws ResourceNotFoundException {
 

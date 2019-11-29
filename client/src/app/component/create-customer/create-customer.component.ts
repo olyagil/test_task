@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomerService} from '../customer.service';
-import {Customer} from '../customer';
+import {CustomerService} from '../../service/customer.service';
+import {Customer} from '../../model/customer';
 import {Observable} from 'rxjs';
-import {CustomerType} from '../customer-type';
+import {CustomerType} from '../../model/customer-type';
 
 @Component({
   selector: 'app-create-customer',
@@ -17,29 +17,38 @@ export class CreateCustomerComponent implements OnInit {
   submitted = false;
 
   constructor(private service: CustomerService, private router: Router) {
+    this.customer = new Customer();
   }
 
   createForm = new FormGroup({
-    title: new FormControl('', [Validators.required, Validators.maxLength(3), Validators.pattern('[a-zA-Z ]*')]),
-    first_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+    title: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(3),
       Validators.pattern('[a-zA-Z ]*')]),
-    last_name: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(50),
+    first_name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
+      Validators.pattern('[a-zA-Z ]*')]),
+    last_name: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Validators.maxLength(50),
       Validators.pattern('[a-zA-Z ]*')]),
     type: new FormControl('', [Validators.required])
   });
 
   ngOnInit() {
     this.submitted = false;
-    this.reloadCustomerTypes();
+    this.loadCustomerTypes();
   }
 
   onSubmit() {
     console.log(this.createForm.value);
-    this.customer = new Customer();
-    this.customer.title = this.Title.value;
-    this.customer.firstName = this.FirstName.value;
-    this.customer.lastName = this.LastName.value;
-    this.customer.typeId = this.Type.value;
+    this.customer.title = this.title.value;
+    this.customer.firstName = this.firstName.value;
+    this.customer.lastName = this.lastName.value;
+    this.customer.typeId = this.type.value;
     this.save();
     this.submitted = true;
   }
@@ -49,23 +58,23 @@ export class CreateCustomerComponent implements OnInit {
       .subscribe(data => console.log(data), error => console.error(error));
   }
 
-  reloadCustomerTypes() {
+  loadCustomerTypes() {
     this.customerTypes = this.service.getCustomerTypeList();
   }
 
-  get Title() {
+  get title() {
     return this.createForm.get('title');
   }
 
-  get FirstName() {
+  get firstName() {
     return this.createForm.get('first_name');
   }
 
-  get LastName() {
+  get lastName() {
     return this.createForm.get('last_name');
   }
 
-  get Type() {
+  get type() {
     return this.createForm.get('type');
   }
 }

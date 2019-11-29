@@ -1,7 +1,7 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
-import {Customer} from '../customer';
-import {CustomerService} from '../customer.service';
+import {Customer} from '../../model/customer';
+import {CustomerService} from '../../service/customer.service';
 import {CustomerListComponent} from '../customer-list/customer-list.component';
 
 @Component({

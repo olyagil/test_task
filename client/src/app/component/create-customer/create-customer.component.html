@@ -8,12 +8,12 @@
       <input type="text" class="form-control" formControlName="title"
              id="title" name="title">
       <div class="alert alert-danger"
-           *ngIf="(Title.touched) && (Title.invalid)"
+           *ngIf="(title.touched) && (title.invalid)"
            style="margin-top: 5px;">
-        <span *ngIf="Title.errors.required"> Title is required.</span>
-        <span *ngIf="Title.errors.maxlength"> Title needs to be smaller.</span>
+        <span *ngIf="title.errors.required"> Title is required.</span>
+        <span *ngIf="title.errors.maxlength"> Title needs to be smaller.</span>
         <span
-          *ngIf="Title.errors.pattern"> Enter only english letters, please!</span>
+          *ngIf="title.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -23,14 +23,14 @@
              data-toggle="tooltip" id="first_name" data-placement="right"
              title="Enter Customer Name" name="first_name">
       <div class="alert alert-danger"
-           *ngIf="(FirstName.touched) && (FirstName.invalid)"
+           *ngIf="(firstName.touched) && (firstName.invalid)"
            style="margin-top: 5px;">
-        <span *ngIf="FirstName.errors.required"> First name is required.</span>
+        <span *ngIf="firstName.errors.required"> First name is required.</span>
         <span
-          *ngIf="FirstName.errors.minlength"> First name needs to be bigger.</span>
+          *ngIf="firstName.errors.minlength"> First name needs to be bigger.</span>
         <span
-          *ngIf="FirstName.errors.maxlength"> First name needs to be smaller.</span>
-        <span *ngIf="FirstName.errors.pattern"> Enter only english letters, please!</span>
+          *ngIf="firstName.errors.maxlength"> First name needs to be smaller.</span>
+        <span *ngIf="firstName.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -40,14 +40,14 @@
              data-toggle="tooltip" id="last_name" data-placement="right"
              title="Enter last name" name="last_name">
       <div class="alert alert-danger"
-           *ngIf="(LastName.touched) && (LastName.invalid)"
+           *ngIf="(lastName.touched) && (lastName.invalid)"
            style="margin-top: 5px;">
-        <span *ngIf="LastName.errors.required"> Last name is required.</span>
+        <span *ngIf="lastName.errors.required"> Last name is required.</span>
         <span
-          *ngIf="LastName.errors.minlength"> Last name needs to be bigger.</span>
+          *ngIf="lastName.errors.minlength"> Last name needs to be bigger.</span>
         <span
-          *ngIf="LastName.errors.maxlength"> Last name needs to be smaller.</span>
-        <span *ngIf="LastName.errors.pattern"> Enter only english letters, please!</span>
+          *ngIf="lastName.errors.maxlength"> Last name needs to be smaller.</span>
+        <span *ngIf="lastName.errors.pattern"> Enter only english letters, please!</span>
       </div>
     </div>
 
@@ -61,9 +61,9 @@
         </ng-container>
       </select>
       <div class="alert alert-danger"
-           *ngIf="(Type.touched) && (Type.invalid)"
+           *ngIf="(type.touched) && (type.invalid)"
            style="margin-top: 5px;">
-        <span *ngIf="Type.errors.required"> Choose a type, please.</span>
+        <span *ngIf="type.errors.required"> Choose a type, please.</span>
       </div>
     </div>
     <button type="submit" [disabled]="!createForm.valid"
