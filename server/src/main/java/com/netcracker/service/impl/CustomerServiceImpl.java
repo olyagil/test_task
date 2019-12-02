@@ -6,6 +6,8 @@ import com.netcracker.entity.Customer;
 import com.netcracker.repository.CustomerRepository;
 import com.netcracker.service.CustomerService;
 import org.apache.commons.codec.language.Metaphone;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,7 +32,17 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> findAllByCustomerByModifiedWhenDesc() {
+    public Page<Customer> findAllByOrderByModifiedWhenDesc(Pageable pageable) {
+        return repository.findAllByOrderByModifiedWhenDesc(pageable);
+
+//        return repository.findAllByOrderByModifiedWhenDesc(pageable)
+//                .stream()
+//                .map(customer -> (mapper.toDto(customer).get()))
+//                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CustomerDto> findAllByOrderByModifiedWhenDesc() {
         return repository.findAllByOrderByModifiedWhenDesc()
                 .stream()
                 .map(customer -> (mapper.toDto(customer).get()))
@@ -73,4 +85,5 @@ public class CustomerServiceImpl implements CustomerService {
     public void delete(Customer customer) {
         repository.delete(customer);
     }
+
 }

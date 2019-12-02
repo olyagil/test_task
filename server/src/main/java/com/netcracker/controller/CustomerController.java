@@ -6,6 +6,8 @@ import com.netcracker.exception.ResourceNotFoundException;
 import com.netcracker.service.CustomerService;
 import com.netcracker.util.Constants;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,7 +30,7 @@ public class CustomerController {
     /*---get all customers---*/
     @GetMapping({"/", Constants.GET_ALL_CUSTOMERS})
     public ResponseEntity<List<CustomerDto>> getAllCustomers(HttpServletRequest request) {
-        List<CustomerDto> customers = customerService.findAllByCustomerByModifiedWhenDesc();
+        List<CustomerDto> customers = customerService.findAllByOrderByModifiedWhenDesc();
         log.info("The customers were requested from ip address: " + request.getRemoteAddr());
         return ResponseEntity.ok().body(customers);
     }
@@ -57,7 +59,7 @@ public class CustomerController {
     /*---Add new customer---*/
     @PostMapping(Constants.GET_ALL_CUSTOMERS)
     public ResponseEntity saveCustomer(@Valid @RequestBody CustomerDto dto,
-                                          HttpServletRequest request) {
+                                       HttpServletRequest request) {
 
         customerService.create(dto);
         log.info(String.format("The customer was requested from ip address: %s",
@@ -69,8 +71,8 @@ public class CustomerController {
     /*---Update the customer by id---*/
     @PutMapping(Constants.GET_CUSTOMER_BY_ID)
     public ResponseEntity updateCustomer(@PathVariable("id") Integer id,
-                                            @Valid @RequestBody CustomerDto customerDto,
-                                            HttpServletRequest request) {
+                                         @Valid @RequestBody CustomerDto customerDto,
+                                         HttpServletRequest request) {
 
         customerService.create(customerDto);
         log.info(String.format("The customer with id: %d was updated from ip address: %s",
@@ -81,7 +83,7 @@ public class CustomerController {
     /*---Delete the customer by id---*/
     @DeleteMapping(Constants.GET_CUSTOMER_BY_ID)
     public ResponseEntity deleteCustomer(@PathVariable("id") Integer id,
-                                            HttpServletRequest request)
+                                         HttpServletRequest request)
             throws ResourceNotFoundException {
 
         Customer customer = customerService.read(id)
@@ -90,5 +92,13 @@ public class CustomerController {
         log.info(String.format("The customer with id: %d was deleted from ip address: %s",
                 id, request.getRemoteAddr()));
         return ResponseEntity.ok().body("The customer has been deleted successfully with id: " + id);
+    }
+
+
+    @GetMapping(value = Constants.GET_ALL_CUSTOMERS, params = {"page", "size"})
+    public ResponseEntity<Page<Customer>> findPaginated(Pageable pageable, HttpServletRequest request) {
+        Page<Customer> resultPage = customerService.findAllByOrderByModifiedWhenDesc(pageable);
+        log.info("The paginated customers were requested from ip address: " + request.getRemoteAddr());
+        return ResponseEntity.ok().body(resultPage);
     }
 }
