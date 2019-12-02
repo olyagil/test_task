@@ -20,10 +20,14 @@ Project is created with:
 ## Screenshots
 ##### Customers
 ![Customers](./client/src/assets/customers.png)
+##### Filtered customers
+![Customers](./client/src/assets/filtered-customers.png)
 ##### Add a customer with validation
 ![Example screenshots](./client/src/assets/add-customer.png)
 ##### Delete the customer with confirmation
-![Example screenshots](./client/src/assets/delete-customer.png)
+![Example screenshots](./client/src/assets/add-customer.png)
+##### Update confirmation on the customer
+![Example screenshots](./client/src/assets/update-confirmation-customer.png)
 ### Used resources 
 * [For Hibernate](https://www.baeldung.com/hibernate-5-spring)
 * [Configure Hibernate ](https://www.springboottutorial.com/hibernate-jpa-tutorial-with-spring-boot-starter-jpa)
