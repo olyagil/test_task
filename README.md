@@ -1,4 +1,4 @@
-# Test task for Netcracker
+# Test task
 
 The simple information system for managing and searching a customer base.  
 Full-stack application using Spring Boot as backend provider and Angular 8 
